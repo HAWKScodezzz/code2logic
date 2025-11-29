@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flask Test</title>
+</head>
+<body>
+  <h1>Flask Connection Test</h1>
+  <textarea id="textInput" rows="4" cols="40"></textarea><br>
+  <button onclick="analyzeText()">Analyze</button>
+  <p id="result"></p>
+
+  <script>
+    async function analyzeText() {
+      const text = document.getElementById('textInput').value;
+      const response = await fetch('http://127.0.0.1:5000/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+
+      const data = await response.json();
+      document.getElementById('result').innerText = data.message || data.error;
+    }
+  </script>
+</body>
+</html>
